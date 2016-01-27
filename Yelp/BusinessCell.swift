@@ -35,6 +35,7 @@ class BusinessCell: UITableViewCell {
         // Initialization code
         thumbImageView.layer.cornerRadius = 3
         thumbImageView.clipsToBounds = true
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
