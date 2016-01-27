@@ -60,8 +60,8 @@
                                                     <color key="textColor" red="0.85225785340000004" green="0.85225785340000004" blue="0.85225785340000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSK-nM-q15">
-                                                    <rect key="frame" x="295" y="30" width="17" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSK-nM-q15">
+                                                    <rect key="frame" x="295" y="28" width="17" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.85225785340000004" green="0.85225785340000004" blue="0.85225785340000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -73,8 +73,8 @@
                                                         <constraint firstAttribute="height" constant="65" id="qH2-If-y3x"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="0.07 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Zv-x8-vSC">
-                                                    <rect key="frame" x="267" y="10" width="45" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0.07 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Zv-x8-vSC">
+                                                    <rect key="frame" x="267" y="7" width="44.5" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.85225785340000004" green="0.85225785340000004" blue="0.85225785340000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -127,10 +127,19 @@
                     </view>
                     <navigationItem key="navigationItem" id="NbE-Ju-AmA"/>
                     <connections>
+                        <outlet property="searchDisplayController" destination="bL8-Tg-jmD" id="JRS-tE-1T8"/>
                         <outlet property="tableView" destination="arx-ad-jOl" id="dCj-mx-HDE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fgb-4b-F1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="bL8-Tg-jmD">
+                    <connections>
+                        <outlet property="delegate" destination="2xI-yr-O5N" id="pSG-NV-pEr"/>
+                        <outlet property="searchContentsController" destination="2xI-yr-O5N" id="F3l-HK-vYf"/>
+                        <outlet property="searchResultsDataSource" destination="2xI-yr-O5N" id="Ice-87-2Zk"/>
+                        <outlet property="searchResultsDelegate" destination="2xI-yr-O5N" id="Zft-q8-tfu"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1485" y="338"/>
         </scene>

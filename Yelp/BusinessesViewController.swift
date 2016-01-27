@@ -11,7 +11,10 @@ import UIKit
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var businesses: [Business]!
+    var filteredData: [Business]!
     @IBOutlet weak var tableView: UITableView!
+    
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +32,19 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 print(business.address!)
             }
         })
+        
+        self.setUpSearchBar()
     }
     
         
     // UITableView - Delegate & Datasource Methods
         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             if businesses != nil {
-                return businesses.count
+                if searchController.active && searchController.searchBar.text != "" {
+                    return filteredData.count
+                } else {
+                    return businesses.count
+                }
             } else {
                 return 0
             }
@@ -43,10 +52,45 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         
         func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCellWithIdentifier("BusinessCell", forIndexPath: indexPath) as! BusinessCell
-            cell.business = businesses[indexPath.row]
+            
+            //filtering mechanism
+            if searchController.active && searchController.searchBar.text != "" {
+                cell.business = filteredData[indexPath.row]
+            } else {
+                cell.business = businesses[indexPath.row]
+            }
+            
+            //cell.business = businesses[indexPath.row]
             return cell
     }
     
+    //UISearchResultsUpdating  Methods
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        filteredData = businesses.filter { business in
+            return business.name!.lowercaseString.containsString(searchText.lowercaseString)
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func setUpSearchBar() {
+        // Initializing with searchResultsController set to nil means that
+        // searchController will use this view controller to display the search results
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        
+        // If we are using thi
+        //same view controller to present the results
+        // dimming it out wouldn't make sense.  Should set probably only set
+        // this to yes if using another controller to display the search results.
+        self.searchController.dimsBackgroundDuringPresentation = false
+        
+        self.searchController.searchBar.sizeToFit()
+        tableView.tableHeaderView = searchController.searchBar
+        
+        // Sets this view controller as presenting view controller for the search interface
+        definesPresentationContext = true
+    }
         
 /* Example of Yelp search with more search options specified
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -69,4 +113,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     */
 
+}
+
+extension BusinessesViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
 }
