@@ -36,6 +36,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         self.setUpSearchBar()
     }
     
+    override func viewWillLayoutSubviews() {
+        self.navigationController?.setNavigationBarHidden(false, animated: false) //stop
+    }
+    
         
     // UITableView - Delegate & Datasource Methods
         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,14 +87,19 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         //same view controller to present the results
         // dimming it out wouldn't make sense.  Should set probably only set
         // this to yes if using another controller to display the search results.
-        self.searchController.dimsBackgroundDuringPresentation = false
+        //self.searchController.dimsBackgroundDuringPresentation = false
         
         self.searchController.searchBar.sizeToFit()
-        tableView.tableHeaderView = searchController.searchBar
+        //tableView.tableHeaderView = searchController.searchBar
+        self.searchController.active = false
+        self.searchController.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: false) //stop
+        self.navigationController?.navigationBar.addSubview(self.searchController.searchBar)
         
         // Sets this view controller as presenting view controller for the search interface
         definesPresentationContext = true
     }
+    
         
 /* Example of Yelp search with more search options specified
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -119,4 +128,5 @@ extension BusinessesViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
+    
 }
