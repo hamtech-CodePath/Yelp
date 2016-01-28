@@ -36,6 +36,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         self.setUpSearchBar()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.searchController.searchBar.hidden = false
+    }
+    
     override func viewWillLayoutSubviews() {
         self.navigationController?.setNavigationBarHidden(false, animated: false) //stop
     }
@@ -68,7 +73,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             return cell
     }
     
-    //UISearchResultsUpdating  Methods
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.searchController.removeFromParentViewController()
+        self.searchController.searchBar.hidden = true
+    }
+    
+    //UISearchResultsUpdating Methods
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         filteredData = businesses.filter { business in
             return business.name!.lowercaseString.containsString(searchText.lowercaseString)
