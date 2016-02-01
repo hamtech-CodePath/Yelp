@@ -97,7 +97,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         //same view controller to present the results
         // dimming it out wouldn't make sense.  Should set probably only set
         // this to yes if using another controller to display the search results.
-        //self.searchController.dimsBackgroundDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = false
         
         self.searchController.searchBar.sizeToFit()
         //tableView.tableHeaderView = searchController.searchBar
@@ -122,15 +122,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         }
 */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let cell = sender as! BusinessCell
+        let index = tableView.indexPathForCell(cell)
+        let selectedBusiness = businesses[index!.row]
+        let detail = segue.destinationViewController as! BusinessDetailViewController
+        detail.business = selectedBusiness
     }
-    */
 
 }
 
